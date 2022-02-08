@@ -26,3 +26,8 @@ def register(db: _orm.Session, user: _schemas.UserCreate):
     db.commit()
     db.refresh(user_obj)
     return user_obj
+
+def get_user_info(db: _orm.Session, api_key: str):
+    user = db.query(_models.User).filter(_models.User.api_key == api_key).first()
+    if user:
+       return user.api_key 
